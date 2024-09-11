@@ -15,8 +15,10 @@ int main (void)
         return 0;
     }
 
-    char * buffer = (char *)calloc(size, sizeof(char));
+    char * buffer = (char *)calloc(size + 1, sizeof(char));
     char ** strings = (char **)calloc(1, sizeof(char *));
+
+    *strings = buffer;
 
     fread(buffer, sizeof(char), 1 + size, file);
 
@@ -27,14 +29,13 @@ int main (void)
         {
             if (buffer[i] == '\n')
             {
-                strings[number_of_strings] = buffer + i;
                 number_of_strings++;
-                strings = (char **)realloc(strings, sizeof(char *) * (number_of_strings + 1)); // поч не работает без char **
+                strings = (char **)realloc(strings, sizeof(char *) * (number_of_strings + 1));
+                strings[number_of_strings] = buffer + i;
             }
         }
     }
 
-    printf("%c", *(*strings + 1));
 
 
 
@@ -44,8 +45,8 @@ int main (void)
 
 
 
-    free(buffer); buffer == NULL;
-    free(strings); strings == NULL;
+    free(buffer); buffer = NULL;
+    free(strings); strings = NULL;
 
     return 0;
 }

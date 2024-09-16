@@ -7,7 +7,7 @@
 #define FREE(ptr_) \
     do { free(ptr_); ptr_ = NULL; } while (0)
 
-void bubble_sort(void * array, int number_of_strings, int compare_strings(void * first_string_, void * second_string_), size_t element_size);
+void bubble_sort(void * array, int number_of_strings, int (*compare_strings)(void * a, void * b), size_t element_size);
 int compare_strings(void * first_string_, void * second_string_);
 void exchanging_strings(char ** array, int first_array, int second_array);
 
@@ -50,7 +50,7 @@ int main (void)
         }
     }
 
-    bubble_sort(strings, compare_strings(void * first_string_, void * second_string_), sizeof(char *));
+    bubble_sort(strings, number_of_strings, compare_strings, sizeof(char *));
 
     for (int i = 0; i < number_of_strings; i++)
     {
@@ -64,7 +64,7 @@ int main (void)
     return 0;
 }
 
-void bubble_sort(void * array, int number_of_strings, int compare_strings(void * a, void * b), size_t element_size)
+void bubble_sort(void * array, int number_of_strings, int (*compare_strings)(void * a, void * b), size_t element_size)
 {
     for (int j = 0; j < number_of_strings; j++)
     {

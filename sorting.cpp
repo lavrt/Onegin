@@ -11,7 +11,7 @@ void bubble_sort(void * array, size_t number_of_strings, size_t element_size, in
     {
         for (size_t i = 0; i < number_of_strings - 1; i++)
         {
-            if (comparator(array + i * element_size, array + (i + 1) * element_size) > 0)
+            if (comparator(array + i * element_size, array + (i + 1) * element_size) > 0) // TODO cast to char* for pointer arithmetic
             {
                 exchanging_strings(array + i * element_size, array + (i + 1) * element_size);
             }

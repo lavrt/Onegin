@@ -49,9 +49,9 @@ int main(void)
         return -1;
     }
 
-    strings_position[0].start_of_string = buffer;
-
     fread(buffer, sizeof(char), size + 1, text_input);
+
+    strings_position[0].start_of_string = buffer;
 
     size_t number_of_strings = 0;
     //TODO отдельная функция
@@ -62,7 +62,7 @@ int main(void)
             number_of_strings++;
             strings_position = (struct position *)realloc(strings_position, sizeof(position) * (number_of_strings + 1));
             strings_position[number_of_strings].start_of_string = buffer + i + 1;
-            strings_position[number_of_strings-1].end_of_string = buffer + i;
+            strings_position[number_of_strings-1].end_of_string = buffer + i - 1;
             buffer[i] = '\0';
         }
     }

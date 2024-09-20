@@ -4,14 +4,13 @@
 #include <assert.h>
 #include <stdlib.h>
 
-void text_to_file(char ** strings_start, FILE * file_name, size_t number_of_strings)
+void text_to_file(struct position * strings_position, FILE * file_name, size_t number_of_strings)
 {
-    assert(strings_start != NULL);
     assert(file_name != NULL);
 
     for (size_t i = 0; i < number_of_strings; i++)
     {
-        fputs(strings_start[i], file_name);
+        fputs(strings_position[i].start_of_string, file_name);
         fputc('\n', file_name);
     }
 }

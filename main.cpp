@@ -42,52 +42,43 @@ int main(void)
         return -1;
     }
 
-    char ** strings_start = (char **)calloc(1, sizeof(char *)); // TODO сделать структуру которая хранит начало и конец строки
-    if (strings_start == NULL)
+    struct position * strings_position = (struct position *)calloc(1, sizeof(position));
+    if (strings_position == NULL)
     {
         fprintf(stderr, "Memory allocation error.\n");
         return -1;
     }
 
-    char ** strings_end = (char **)calloc(1, sizeof(char *));
-    if (strings_end == NULL)
-    {
-        fprintf(stderr, "Memory allocation error.\n");
-        return -1;
-    }
-
-    *strings_start = buffer;
+    strings_position[0].start_of_string = buffer;
 
     fread(buffer, sizeof(char), size + 1, text_input);
 
     size_t number_of_strings = 0;
     //TODO отдельная функция
-    for (size_t i = 0; i < size; i++)
+    for (size_t i = 1; i < size + 1; i++)
     {
         if (buffer[i] == '\n')
         {
             number_of_strings++;
-            strings_start = (char **)realloc(strings_start, sizeof(char *) * (number_of_strings + 1));
-            strings_end = (char **)realloc(strings_end, sizeof(char *) * (number_of_strings + 1));
-            strings_start[number_of_strings] = buffer + i + 1;
-            strings_end[number_of_strings] = buffer + i;
+            strings_position = (struct position *)realloc(strings_position, sizeof(position) * (number_of_strings + 1));
+            strings_position[number_of_strings].start_of_string = buffer + i + 1;
+            strings_position[number_of_strings-1].end_of_string = buffer + i;
             buffer[i] = '\0';
         }
     }
 
-    bubble_sort(strings_start, number_of_strings, sizeof(char *), compare_strings_direct);
-    text_to_file(strings_start, text_output_sorted_direct, number_of_strings);
+    bubble_sort(strings_position, number_of_strings, sizeof(position), compare_strings_direct);
+    text_to_file(strings_position, text_output_sorted_direct, number_of_strings);
 
-    bubble_sort(strings_start, number_of_strings, sizeof(char *), compare_strings_from_end);
-    text_to_file(strings_start, text_output_sorted_from_end, number_of_strings);
+    bubble_sort(strings_position, number_of_strings, sizeof(position), compare_strings_from_end);
+    text_to_file(strings_position, text_output_sorted_from_end, number_of_strings);
 
     FCLOSE(text_input);
     FCLOSE(text_output_sorted_direct);
     FCLOSE(text_output_sorted_from_end);
 
     FREE(buffer);
-    FREE(strings_start);
-    FREE(strings_end);
+    FREE(strings_position);
 
     return 0;
 }

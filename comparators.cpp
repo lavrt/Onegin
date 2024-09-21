@@ -36,8 +36,8 @@ int compare_strings_from_end(void * first_string_, void * second_string_)
     assert(first_string_ != NULL);
     assert(second_string_ != NULL);
 
-    struct position first_string = *(struct position *)first_string_;
-    struct position second_string = *(struct position *)second_string_;
+    struct position first_string = **(struct position **)first_string_;
+    struct position second_string = **(struct position **)second_string_;
 
     fprintf(stderr, "first_string: [%p][%p]\n", first_string.start_of_string, first_string.end_of_string);
     fprintf(stderr, "second_string: [%p][%p]\n", second_string.start_of_string, second_string.end_of_string);

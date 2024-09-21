@@ -4,6 +4,6 @@
 #include <stdio.h>
 
 void bubble_sort(void * array, size_t number_of_strings, size_t element_size, int comparator(void * a, void * b));
-void exchanging_strings(void * first_array_, void * second_array_);
+void exchanging_strings(void * first_string, void * second_string);
 
 #endif // SORTING_H

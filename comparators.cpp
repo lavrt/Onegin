@@ -13,6 +13,9 @@ int compare_strings_direct(void * first_string_, void * second_string_)
     assert(first_string_ != NULL);
     assert(second_string_ != NULL);
 
+    fprintf(stderr, "first_string.start_of_string %p\n", *(struct position *)first_string_);
+    fprintf(stderr, "second_string.end_of_string %p\n", *(struct position *)second_string_);
+
     struct position first_string = *(struct position *)first_string_;
     struct position second_string = *(struct position *)second_string_;
 

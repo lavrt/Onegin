@@ -7,6 +7,8 @@ void bubble_sort(void * array, size_t number_of_strings, size_t element_size, in
 {
     assert(array != NULL);
 
+    fprintf(stderr, "\n\narray %p\n\n", array);
+
     for (size_t j = 0; j < number_of_strings; j++)
     {
         for (size_t i = 0; i < number_of_strings - 1; i++)
@@ -23,5 +25,5 @@ void exchanging_strings(void * first_string, void * second_string)
 {
     void * temp = first_string;
                   first_string = second_string;
-                                        second_string = temp;
+                                 second_string = temp;
 }

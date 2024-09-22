@@ -58,8 +58,12 @@ int main(void)
 
     fread(buffer, sizeof(char), size + 1, text_input);
 
-    strings -> start_of_string = buffer;
+    (strings[0]).start_of_string = buffer;
     pointer[0] = strings;
+
+    fprintf(stderr, "\n\nbuffer %p\n", buffer);
+    fprintf(stderr, "first_string %p\n\n", (strings[0]).start_of_string);
+    fprintf(stderr, "first_string %p\n\n", &((strings[0])));
 
     size_t number_of_strings = 0;
     //TODO отдельная функция
@@ -68,28 +72,29 @@ int main(void)
         if (buffer[i] == '\n')
         {
             number_of_strings++;
-            strings = (struct position *)realloc(strings, sizeof(position) * (number_of_strings + 1));
             pointer = (struct position **)realloc(pointer, sizeof(position *) * (number_of_strings + 1));
+            pointer[number_of_strings] = &strings[number_of_strings];
+            strings = (struct position *)realloc(strings, sizeof(position) * (number_of_strings + 1));
             (strings[number_of_strings]).start_of_string = buffer + i + 1;
             (strings[number_of_strings-1]).end_of_string = buffer + i - 1;
-            pointer[number_of_strings] = &strings[number_of_strings];
+
             buffer[i] = '\0';
         }
     }
 
-    bubble_sort(pointer, number_of_strings, sizeof(position **), compare_strings_direct);
+    bubble_sort(*pointer, number_of_strings, sizeof(position *), compare_strings_direct);
     text_to_file(*pointer, text_output_sorted_direct, number_of_strings);
 
-    bubble_sort(pointer, number_of_strings, sizeof(position **), compare_strings_from_end);
+    bubble_sort(*pointer, number_of_strings, sizeof(position *), compare_strings_from_end);
     text_to_file(*pointer, text_output_sorted_from_end, number_of_strings);
 
     FCLOSE(text_input);
     FCLOSE(text_output_sorted_direct);
     FCLOSE(text_output_sorted_from_end);
-
-    FREE(buffer);
-    FREE(strings);
     FREE(pointer);
+    FREE(strings);
+    FREE(buffer);
+
 
     return 0;
 }

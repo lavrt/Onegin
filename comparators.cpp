@@ -8,14 +8,14 @@
 #include "processing.h"
 #include "debug.h"
 
-int compare_strings_direct(const void * first_string_, const void * second_string_)
+int compare_strings_direct(const void * first_string_void, const void * second_string_void)
 {
-    assert(first_string_ != NULL);
-    assert(second_string_ != NULL);
-    assert(first_string_ != second_string_);
+    assert(first_string_void != NULL);
+    assert(second_string_void != NULL);
+    assert(first_string_void != second_string_void);
 
-    const position first_string = *(const position *)first_string_;
-    const position second_string = *(const position *)second_string_;
+    const position first_string = *(const position *)first_string_void;
+    const position second_string = *(const position *)second_string_void;
 
     int index_first_string = 0;
     int index_second_string = 0;
@@ -35,14 +35,14 @@ int compare_strings_direct(const void * first_string_, const void * second_strin
     return first_string.start[index_first_string] - second_string.start[index_second_string];
 }
 
-int compare_strings_from_end(const void * first_string_, const void * second_string_)
+int compare_strings_from_end(const void * first_string_void, const void * second_string_void)
 {
-    assert(first_string_ != NULL);
-    assert(second_string_ != NULL);
-    assert(first_string_ != second_string_);
+    assert(first_string_void != NULL);
+    assert(second_string_void != NULL);
+    assert(first_string_void != second_string_void);
 
-    const position first_string = *(const position *)first_string_;
-    const position second_string = *(const position *)second_string_;
+    const position first_string = *(const position *)first_string_void;
+    const position second_string = *(const position *)second_string_void;
 
     int index_first_string = 0;
     int index_second_string = 0;
